@@ -3,6 +3,7 @@ from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
 from pptx import Presentation
 from pptx.util import Inches, Pt
+from asgiref.wsgi import WsgiToAsgi
 from pptx.enum.text import PP_ALIGN
 from pptx.dml.color import RGBColor
 import os
@@ -18,7 +19,7 @@ load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
-
+asgi_app = WsgiToAsgi(app)
 
 # Configure Gemini
 GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
@@ -754,4 +755,4 @@ def health_check():
     return jsonify({'status': 'healthy', 'message': 'PPT Generator API is running'})
 
 if __name__ == '__main__':
-    run("app:app", host="0.0.0.0", port=8000, reload=True)
+    run("app:asgi_app", host="0.0.0.0", port=8000, reload=True)
