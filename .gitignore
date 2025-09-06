@@ -1,0 +1,28 @@
+# Virtual environments
+venv/
+.env/
+*.env
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Byte-compiled
+*$py.class
+
+# Logs
+*.log
+
+# IDE / Editor configs
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Render/Deployment
+*.sqlite3
+instance/
