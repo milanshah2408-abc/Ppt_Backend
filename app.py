@@ -755,4 +755,4 @@ def health_check():
     return jsonify({'status': 'healthy', 'message': 'PPT Generator API is running'})
 
 if __name__ == '__main__':
-    run("app:asgi_app", host="0.0.0.0", port=8000, reload=True)
+    run("app:asgi_app", port=8000, reload=True)
