@@ -9,6 +9,7 @@ import os
 import tempfile
 from dotenv import load_dotenv
 import json
+from uvicorn import run
 import requests
 import google.generativeai as genai
 
@@ -753,4 +754,4 @@ def health_check():
     return jsonify({'status': 'healthy', 'message': 'PPT Generator API is running'})
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    run("app:app", host="0.0.0.0", port=8000, reload=True)
