@@ -208,7 +208,7 @@ def generate_content_with_openai(topic, slides_count, research):
         print(f"Generating content with Gemini for topic: {topic}, slides: {slides_count}")
 
         # Use the Gemini API to generate content in JSON format using the defined schema.
-        response = genai.GenerativeModel('gemini-1.5-flash').generate_content(
+        response = genai.GenerativeModel('gemini-2.5-flash').generate_content(
             prompt,
             generation_config=genai.types.GenerationConfig(
                 temperature=0.4,
