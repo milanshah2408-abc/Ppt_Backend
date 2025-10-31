@@ -217,14 +217,21 @@ def generate_content_with_openai(topic, slides_count, research):
                 response_schema=response_schema
             )
         )
-        
-        # Access the text of the response, which is guaranteed to be valid JSON.
         raw = response.text
         print(f"Gemini response received, length: {len(raw)}")
-        
-        # Directly parse the raw text as JSON. The try_parse_json function is no longer needed
-        # because the API is enforcing the format.
-        parsed = json.loads(raw)
+
+        parsed = try_parse_json(raw)
+        if parsed is None:
+            print("Gemini returned invalid JSON, using fallback parser")
+            # Attempt to fix common formatting issues
+            cleaned = raw.strip()
+            if cleaned.startswith("```json"):
+                cleaned = cleaned.replace("```json", "").replace("```", "").strip()
+            parsed = try_parse_json(cleaned)
+
+        if parsed is None:
+            raise ValueError("Gemini returned non-JSON output")
+
 
         # Ensure references include research url if missing
         if references:
